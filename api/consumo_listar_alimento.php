@@ -25,17 +25,19 @@ $sql = "
     a.descricao_do_alimento,
 
     -- valores reais consumidos
-    ROUND((a.Energia_kcal * cd.quantidade_gramas) / 100, 2) AS kcal_consumidas,
-    ROUND((a.Proteina_g * cd.quantidade_gramas) / 100, 2) AS proteina_consumida,
-    ROUND((a.Carboidrato_g * cd.quantidade_gramas) / 100, 2) AS carboidrato_consumido,
-    ROUND((a.Lipidios_totais_g * cd.quantidade_gramas) / 100, 2) AS gordura_consumida
+    ROUND((CAST(a.Energia_kcal AS DECIMAL(10,2)) * cd.quantidade_gramas) / 100, 2) AS kcal_consumidas,
+
+    ROUND((CAST(a.Proteina_g AS DECIMAL(10,2)) * cd.quantidade_gramas) / 100, 2) AS proteina_consumida,
+
+    ROUND((CAST(a.Carboidrato_g AS DECIMAL(10,2)) * cd.quantidade_gramas) / 100, 2) AS carboidrato_consumido,
+    
+    ROUND((CAST(a.Lipidios_totais_g AS DECIMAL(10,2)) * cd.quantidade_gramas) / 100, 2) AS gordura_consumida
 
   FROM consumo_diario cd
   JOIN alimentos a ON a.id = cd.alimento_id
   WHERE cd.usuario_id = :usuario_id
     AND cd.data_consumo = :data
   ORDER BY cd.criado_em DESC
-  LIMIT 5
 ";
 
 $stmt = $pdo->prepare($sql);

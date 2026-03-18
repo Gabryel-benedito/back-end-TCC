@@ -8,11 +8,7 @@ $sql = "
     SELECT   email,
     nome,
     data_nascimento,
-    altura_cm,
-    peso_kg,
-    nivel_atividade,
-    sexo,
-    meta
+    sexo
     FROM usuarios
     WHERE id = :id
 ";

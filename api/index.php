@@ -250,20 +250,20 @@ Resposta: {"id":10,"descricao_do_alimento":"Banana","Energia_kcal":89,...}</pre
                   <tr>
                     <td>data_nascimento</td>
                     <td>YYYY-MM-DD</td>
-                    <td>Opcional</td>
+                    <td>Data de nascimento (obrigatório)</td>
                   </tr>
                   <tr>
-                    <td>peso_kg,altura_cm,sexo,nivel_atividade,meta</td>
-                    <td>num/string</td>
-                    <td>Opcional - perfil do usuário</td>
+                    <td>sexo</td>
+                    <td>string</td>
+                    <td>Sexo: 'Masculino', 'Feminino' ou 'Outro' (obrigatório)</td>
                   </tr>
                 </table>
               </div>
               <pre>
 POST /api/cadastro.php
 Content-Type: application/json
-{ "nome":"João", "email":"joao@ex.com", "senha":"senha123" }
-Resposta: {"success":true,"usuario":{"id":12,"nome":"João","email":"joao@ex.com"}}</pre
+{ "nome":"João", "email":"joao@ex.com", "senha":"senha123", "data_nascimento":"1990-01-01", "sexo":"Masculino" }
+Resposta: {"success":true,"usuario":{"id":12,"nome":"João","email":"joao@ex.com","sexo":"Masculino"}}</pre
               >
             </section>
 
@@ -330,11 +330,16 @@ Resposta (sucesso): {"sucesso":true,"usuario":{"id":12,"email":"joao@ex.com","no
                     <td>number</td>
                     <td>Quantidade consumida em gramas (obrigatório)</td>
                   </tr>
+                  <tr>
+                    <td>meta</td>
+                    <td>number</td>
+                    <td>Meta calórica diária (obrigatório)</td>
+                  </tr>
                 </table>
               </div>
               <pre>
 POST /api/consumo_alimento.php
-{ "usuario_id":1, "alimento_id":10, "data_consumo":"2026-02-24", "quantidade_gramas":100 }
+{ "usuario_id":1, "alimento_id":10, "data_consumo":"2026-02-24", "quantidade_gramas":100, "meta":2000 }
 Resposta: {"sucesso":true,"mensagem":"Consumo registrado com sucesso"}</pre
               >
             </section>
@@ -406,7 +411,7 @@ Resposta: { "data":"2026-02-24","totais_do_dia":{...},"itens":[ ... ] }</pre
               <h2>perfil.php <span class="label">GET</span></h2>
               <div class="meta">
                 Retorna informações do perfil do usuário (email, nome,
-                data_nascimento, altura, peso, nível de atividade, sexo, meta).
+                data_nascimento, sexo).
               </div>
               <div class="params">
                 <strong>Parâmetros:</strong>
@@ -423,7 +428,7 @@ Resposta: { "data":"2026-02-24","totais_do_dia":{...},"itens":[ ... ] }</pre
               </div>
               <pre>
 GET /api/perfil.php?id=1
-Resposta: {"email":"joao@ex.com","nome":"João","data_nascimento":"1990-01-01","altura_cm":175,"peso_kg":75,"nivel_atividade":"moderado","sexo":"M","meta":"manter"}</pre
+Resposta: {"email":"joao@ex.com","nome":"João","data_nascimento":"1990-01-01","sexo":"Masculino"}</pre
               >
             </section>
 
@@ -431,13 +436,13 @@ Resposta: {"email":"joao@ex.com","nome":"João","data_nascimento":"1990-01-01","
               <h2>config/conexao.php <span class="label">arquivo PHP</span></h2>
               <div class="meta">
                 Cria o objeto PDO (`$pdo`) com configuração de conexão ao banco
-                de dados. Usado por todos os endpoints via `require_once`.
+                de dados "YourDiet". Usado por todos os endpoints via `require_once`.
               </div>
               <div class="params">
                 <strong>Atenção:</strong> não incluir credenciais sensíveis em
                 repositórios públicos. Exemplo mínimo:
                 <pre>
-$pdo = new PDO("mysql:host=HOST;dbname=DB;charset=utf8mb4", USER, PASS);
+$pdo = new PDO("mysql:host=HOST;dbname=YourDiet;charset=utf8mb4", USER, PASS);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</pre
                 >
               </div>
