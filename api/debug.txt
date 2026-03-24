@@ -1,1 +1,1 @@
-{"email":"G@.com","senha":"123456"}{"usuario_id":2,"meta":null}
+{"email":"g@.com","senha":"123456"}

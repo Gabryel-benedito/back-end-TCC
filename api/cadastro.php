@@ -10,6 +10,7 @@ $email = trim($dados["email"] ?? null);
 $senha = $dados["senha"] ?? null;
 $data_nascimento = $dados['data_nascimento'] ?? null;
 $sexo            = $dados['sexo'] ?? null;
+$meta = 0;
 
 
 
@@ -66,8 +67,8 @@ $sexo            = $dados['sexo'] ?? null;
         $hash = password_hash($senha, PASSWORD_DEFAULT);
 
         $sql = "
-            INSERT INTO usuarios (nome, email, senha, data_nascimento, sexo)
-            VALUES (:nome, :email, :senha, :data_nascimento, :sexo)
+            INSERT INTO usuarios (nome, email, senha, data_nascimento, sexo, meta)
+            VALUES (:nome, :email, :senha, :data_nascimento, :sexo, $meta)
         ";
 
         $stmt = $pdo->prepare($sql);
@@ -85,7 +86,8 @@ $sexo            = $dados['sexo'] ?? null;
                 "id" => $pdo->lastInsertId(),
                 "nome" => $nome,
                 "email" => $email,
-                "sexo" => $sexo
+                "sexo" => $sexo,
+                "meta" => $meta
             ]
         ]);
 

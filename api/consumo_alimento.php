@@ -16,7 +16,6 @@ $camposObrigatorios = [
   'alimento_id',
   'data_consumo',
   'quantidade_gramas',
-  'meta'
 ];
 
 foreach ($camposObrigatorios as $campo) {
@@ -31,7 +30,7 @@ $usuario_id        = (int) $dados['usuario_id'];
 $alimento_id       = (int) $dados['alimento_id'];
 $data_consumo      = $dados['data_consumo'];
 $quantidade_gramas = (float) $dados['quantidade_gramas'];
-$meta              = (float) $dados['meta'];
+
 
 if ($quantidade_gramas <= 0) {
   http_response_code(400);
@@ -41,13 +40,11 @@ if ($quantidade_gramas <= 0) {
 
 $sql = "
   INSERT INTO consumo_diario (
-    meta,
     usuario_id,
     alimento_id,
     data_consumo,
     quantidade_gramas
   ) VALUES (
-    :meta,
     :usuario_id,
     :alimento_id,
     :data_consumo,
@@ -57,7 +54,6 @@ $sql = "
 
 $stmt = $pdo->prepare($sql);
 
-$stmt->bindValue(":meta", $meta);
 $stmt->bindValue(":usuario_id", $usuario_id, PDO::PARAM_INT);
 $stmt->bindValue(":alimento_id", $alimento_id, PDO::PARAM_INT);
 $stmt->bindValue(":data_consumo", $data_consumo);
