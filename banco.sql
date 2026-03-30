@@ -13,6 +13,7 @@ CREATE TABLE usuarios (
   data_nascimento DATE NOT NULL,
   sexo ENUM('Masculino','Feminino','Outro') NOT NULL,
   meta DECIMAL(6,2), 
+  foto varchar(255),
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
