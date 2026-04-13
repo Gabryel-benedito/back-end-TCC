@@ -42,6 +42,7 @@ if (isset($_FILES['foto'])) {
     } else {
         echo json_encode(["status" => "erro_upload"]);
     }
-} else {
+}
+ else {
     echo json_encode(["status" => "sem_arquivo"]);
 }
